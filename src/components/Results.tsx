@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { DataContext } from '../App'
 import Button from './Button'
 import shuffleArray from '../helpers/shuffleArray'

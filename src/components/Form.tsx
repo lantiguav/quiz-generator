@@ -42,8 +42,10 @@ export const Form = () => {
   const clearForm = (): void => {
     setAnswerFields([{ id: uuid(), text: '', isCorrect: false }])
 
-    questionInputRef.current.value = ''
-    questionInputRef?.current?.focus()
+    if (questionInputRef?.current) {
+      questionInputRef.current.value = ''
+      questionInputRef.current.focus()
+    }
   }
 
   const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +64,7 @@ export const Form = () => {
     ])
   }
 
-  const handleAnswerBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleAnswerBlur = (e: any) => {
     if (e.target.value || answerFields.length === 1) {
       return
     }
