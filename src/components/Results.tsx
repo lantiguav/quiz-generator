@@ -7,12 +7,10 @@ import Question from '../../types/question'
 export const Results = () => {
   const { questions, setQuestions } = useContext(DataContext)
 
-
-
   const handleRandomizeClick = () => {
     const shuffledQuestions: Question[] = shuffleArray(questions)
 
-    shuffledQuestions.forEach(question => {
+    shuffledQuestions.forEach((question) => {
       question.possibleAnswers = shuffleArray(question.possibleAnswers)
     })
 
@@ -21,6 +19,7 @@ export const Results = () => {
 
   return (
     <>
+      {questions.length > 0 && <hr className='my-4' />}
       {questions.map((question) => (
         <div key={question.id} className='mb-4'>
           <h2 className='text-xl'>{question.text}</h2>

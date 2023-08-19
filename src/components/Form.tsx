@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef } from 'react'
 
 import { InputText } from './InputText'
 import { v4 as uuid } from 'uuid'
@@ -12,6 +12,7 @@ export const Form = () => {
   ])
 
   const { questions, setQuestions } = useContext(DataContext)
+  const questionInputRef = useRef<HTMLInputElement>(null)
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault()
@@ -40,9 +41,12 @@ export const Form = () => {
 
   const clearForm = (): void => {
     setAnswerFields([{ id: uuid(), text: '', isCorrect: false }])
+
+    questionInputRef.current.value = ''
+    questionInputRef?.current?.focus()
   }
 
-  const handleAnswerChange = (e: any) => {
+  const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target)
     if (!e.target.value) {
       return
@@ -58,7 +62,7 @@ export const Form = () => {
     ])
   }
 
-  const handleAnswerBlur = (e: any) => {
+  const handleAnswerBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value || answerFields.length === 1) {
       return
     }
@@ -80,6 +84,7 @@ export const Form = () => {
           name='question'
           className='mb-4 w-full'
           placeholder='Question'
+          ref={questionInputRef}
         />
 
         {answerFields.map((answer, i) => (
